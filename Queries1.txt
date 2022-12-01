@@ -1,0 +1,67 @@
+/* Query 1 */
+--------------
+SELECT 
+  c.City city, 
+  SUM(i.total) AS total 
+FROM 
+  Invoice i 
+  JOIN Customer c ON i.CustomerId = c.CustomerId 
+GROUP BY 
+  city 
+ORDER BY 
+  total DESC 
+LIMIT 
+  1
+---------------------------------------------------------------------------------
+/* Query 2 */
+--------------
+SELECT 
+  c.CustomerId customer_id, 
+  SUM(i.total) AS total 
+FROM 
+  Invoice i 
+  JOIN Customer c ON i.CustomerId = c.CustomerId 
+GROUP BY 
+  customer_id 
+ORDER BY 
+  total DESC 
+LIMIT 
+  1
+---------------------------------------------------------------------------------
+/* Query 3 */
+--------------
+SELECT 
+  ar.ArtistId, 
+  ar.Name, 
+  COUNT(*) AS songs 
+FROM 
+  Genre g 
+  JOIN Track t ON g.GenreId = t.GenreId 
+  JOIN Album al ON al.AlbumId = t.AlbumId 
+  JOIN Artist ar ON ar.ArtistId = al.ArtistId 
+WHERE 
+  g.Name = 'Rock' 
+GROUP BY 
+  1, 
+  2 
+ORDER BY 
+  songs DESC 
+LIMIT 
+  10
+---------------------------------------------------------------------------------
+/* Query 4 */
+--------------
+SELECT 
+  ar.Name, 
+  SUM(il.UnitPrice * il.Quantity) AS AmountSpent 
+FROM 
+  InvoiceLine il 
+  JOIN track t ON t.TrackId = il.TrackId 
+  JOIN Album al ON al.AlbumId = t.AlbumId 
+  JOIN Artist ar ON ar.ArtistId = al.ArtistId 
+GROUP BY 
+  1 
+ORDER BY 
+  2 DESC 
+LIMIT 
+  5
